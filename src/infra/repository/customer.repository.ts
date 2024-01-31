@@ -1,18 +1,33 @@
 import { Address } from '../../domain/entity/address';
 import { Customer } from '../../domain/entity/customer';
+import { EventDispatcher } from '../../domain/event/@shared/event-dispatcher';
+import { CustomerCreatedEvent } from '../../domain/event/customer/customer-created.event';
+import { SendConsoleLog1Handler } from '../../domain/event/customer/handler/send-console-log1.handler';
+import { SendConsoleLog2Handler } from '../../domain/event/customer/handler/send-console-log2.handler';
 import { ICustomerRepository } from '../../domain/repository/customer-repository.interface';
 import { CustomerModel } from '../db/sequelize/models/customer.model';
 
 export class CustomerRepository implements ICustomerRepository {
   async create(entity: Customer): Promise<void> {
-    await CustomerModel.create({
-      id: entity.id,
-      name: entity.name,
-      street: entity.address._street,
-      number: entity.address._number,
-      zip: entity.address._zip,
-      city: entity.address._city,
-    });
+    try {
+      await CustomerModel.create({
+        id: entity.id,
+        name: entity.name,
+        street: entity.address._street,
+        number: entity.address._number,
+        zip: entity.address._zip,
+        city: entity.address._city,
+      });
+      const eventDispatcher = new EventDispatcher();
+      const eventHandler = new SendConsoleLog1Handler();
+      const eventHandler2 = new SendConsoleLog2Handler();
+      eventDispatcher.register('CustomerCreatedEvent', eventHandler);
+      eventDispatcher.register('CustomerCreatedEvent', eventHandler2);
+      const customerCreatedEvent = new CustomerCreatedEvent(entity);
+      eventDispatcher.notify(customerCreatedEvent);
+    } catch (error) {
+      throw new Error('Failed do create customer' + error);
+    }
   }
 
   async find(id: string): Promise<Customer | null> {
@@ -36,50 +51,66 @@ export class CustomerRepository implements ICustomerRepository {
   }
 
   async findAll(): Promise<Customer[]> {
-    const data = await CustomerModel.findAll();
-    return data.map((customerModel) => {
-      const address = new Address(
-        customerModel.street,
-        customerModel.number,
-        customerModel.zip,
-        customerModel.city,
-      );
-      const customer = new Customer(customerModel.id, customerModel.name);
-      customer.Address = address;
-      return customer;
-    });
+    try {
+      const data = await CustomerModel.findAll();
+      return data.map((customerModel) => {
+        const address = new Address(
+          customerModel.street,
+          customerModel.number,
+          customerModel.zip,
+          customerModel.city,
+        );
+        const customer = new Customer(customerModel.id, customerModel.name);
+        customer.Address = address;
+        return customer;
+      });
+    } catch (error) {
+      throw new Error('Failed to find all customers' + error);
+    }
   }
 
   async update(entity: Customer): Promise<void> {
-    await CustomerModel.update(
-      {
-        name: entity.name,
-        street: entity.address._street,
-        number: entity.address._number,
-        zip: entity.address._zip,
-        city: entity.address._city,
-      },
-      {
-        where: { id: entity.id },
-      },
-    );
+    try {
+      await CustomerModel.update(
+        {
+          name: entity.name,
+          street: entity.address._street,
+          number: entity.address._number,
+          zip: entity.address._zip,
+          city: entity.address._city,
+        },
+        {
+          where: { id: entity.id },
+        },
+      );
+    } catch (error) {
+      throw new Error('Failed to update customer' + error);
+    }
   }
 
   async activate(id: string): Promise<void> {
-    await CustomerModel.update(
-      {
-        active: true,
-      },
-      { where: { id } },
-    );
+    try {
+      await CustomerModel.update(
+        {
+          active: true,
+        },
+        { where: { id } },
+      );
+    } catch (error) {
+      throw new Error('Failed to activate customer' + error);
+    }
   }
 
   async deactivate(id: string): Promise<void> {
-    await CustomerModel.update(
-      {
-        active: false,
-      },
-      { where: { id } },
-    );
+    try {
+      await CustomerModel.update(
+        {
+          active: false,
+        },
+        { where: { id } },
+      );
+    } catch (error) {
+      throw new Error('Failed to deactivate customer' + error);
+    }
   }
 }

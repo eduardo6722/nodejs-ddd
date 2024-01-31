@@ -1,3 +1,6 @@
+import { EventDispatcher } from '../event/@shared/event-dispatcher';
+import { CustomerAddressChangedEvent } from '../event/customer/customer-address-changed.event';
+import { SendConsoleLogHandler } from '../event/customer/handler/send-console-log.handler';
 import { Address } from './address';
 
 export class Customer {
@@ -44,6 +47,19 @@ export class Customer {
 
   addRewardPoints(points: number) {
     this._rewardPoints += points;
+  }
+
+  changeAddress(address: Address) {
+    this._address = address;
+    const eventDispatcher = new EventDispatcher();
+    const eventHandler = new SendConsoleLogHandler();
+    eventDispatcher.register('CustomerAddressChangedEvent', eventHandler);
+    const addressChangedEvent = new CustomerAddressChangedEvent({
+      id: this._id,
+      name: this._name,
+      address,
+    });
+    eventDispatcher.notify(addressChangedEvent);
   }
 
   set Address(address: Address) {
