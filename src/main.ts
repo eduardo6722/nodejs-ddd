@@ -15,4 +15,5 @@ const item2 = new OrderItem('2', 'Galaxy', 5500, '456', 1);
 const order = new Order('1', customer._id, [item1, item2]);
 
 // eslint-disable-next-line no-console
+
 console.log('order: ', order);
