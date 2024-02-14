@@ -204,7 +204,7 @@ describe('Order repository tests', () => {
     expect(findOrder).toBeNull();
   });
 
-  it('Should find all orders', async () => {
+  it('should find all orders', async () => {
     const customer = await createCustomer();
     const product = await createProduct('123', 'Product 1', 10);
     const orderItem = await createOrderItem('1', 1, product);

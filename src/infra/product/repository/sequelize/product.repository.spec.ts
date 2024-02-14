@@ -22,7 +22,7 @@ describe('Product repository test', () => {
     await sequelize.close();
   });
 
-  it('Should create a product', async () => {
+  it('should create a product', async () => {
     const productRepository = new ProductRepository();
     const product = new Product('1', 'Product 1', 100);
 
@@ -37,7 +37,7 @@ describe('Product repository test', () => {
     });
   });
 
-  it('Should update a product', async () => {
+  it('should update a product', async () => {
     const productRepository = new ProductRepository();
     const product = new Product('1', 'Product 1', 100);
 
@@ -65,7 +65,7 @@ describe('Product repository test', () => {
     });
   });
 
-  it('Should find a product', async () => {
+  it('should find a product', async () => {
     const productRepository = new ProductRepository();
     const product = new Product('1', 'Product 1', 100);
 
@@ -81,7 +81,7 @@ describe('Product repository test', () => {
     });
   });
 
-  it('Should find all products', async () => {
+  it('should find all products', async () => {
     const productRepository = new ProductRepository();
     const product = new Product('1', 'Product 1', 100);
     const product2 = new Product('2', 'Product 2', 200);

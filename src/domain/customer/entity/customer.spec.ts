@@ -2,26 +2,26 @@ import { Address } from '../value-object/address';
 import { Customer } from './customer';
 
 describe('Customer', () => {
-  it('Should throw an error when is empty', () => {
+  it('should throw an error when is empty', () => {
     expect(() => new Customer('', 'John')).toThrow('Id is required');
   });
 
-  it('Should throw an error when name is empty', () => {
+  it('should throw an error when name is empty', () => {
     expect(() => new Customer('1', '')).toThrow('Name is required');
   });
 
-  it('Should update the name', () => {
+  it('should update the name', () => {
     const customer = new Customer('1', 'John');
     customer.changeName('Jane');
     expect(customer._name).toBe('Jane');
   });
 
-  it('Should throw an error when changeName receives empty name', () => {
+  it('should throw an error when changeName receives empty name', () => {
     const customer = new Customer('1', 'John');
     expect(() => customer.changeName('')).toThrow('Name is required');
   });
 
-  it('Should activate customer', () => {
+  it('should activate customer', () => {
     const customer = new Customer('1', 'John');
     const address = new Address('Cool Avenue', '123', '12345', 'Rio');
     customer.Address = address;
@@ -29,7 +29,7 @@ describe('Customer', () => {
     expect(customer.isActive()).toBe(true);
   });
 
-  it('Should deactivate customer', () => {
+  it('should deactivate customer', () => {
     const customer = new Customer('1', 'John');
     const address = new Address('Cool Avenue', '123', '12345', 'Rio');
     customer.Address = address;
@@ -39,12 +39,12 @@ describe('Customer', () => {
     expect(customer.isActive()).toBe(false);
   });
 
-  it('Should not change status active when there is no address', () => {
+  it('should not change status active when there is no address', () => {
     const customer = new Customer('1', 'John');
     expect(() => customer.activate()).toThrow('Address is required');
   });
 
-  it('Should add reward points', () => {
+  it('should add reward points', () => {
     const customer = new Customer('1', 'Customer 1');
     expect(customer.rewardPoints).toBe(0);
 

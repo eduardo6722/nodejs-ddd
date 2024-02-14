@@ -4,7 +4,7 @@ import { OrderItem } from '../entity/order_item';
 import { OrderService } from './order.service';
 
 describe('Order service unit test', () => {
-  it('Should place an order', () => {
+  it('should place an order', () => {
     const customer = new Customer('1', 'Customer 1');
     const item1 = new OrderItem('1', 'Item 1', 100, '1', 1);
 
@@ -14,7 +14,7 @@ describe('Order service unit test', () => {
     expect(order.total()).toBe(100);
   });
 
-  it('Should get orders total', () => {
+  it('should get orders total', () => {
     const item1 = new OrderItem('1', 'Item 1', 100, '1', 1);
     const item2 = new OrderItem('2', 'Item 2', 200, '2', 2);
 

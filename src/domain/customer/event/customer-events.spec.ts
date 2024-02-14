@@ -23,7 +23,7 @@ describe('Customer events', () => {
     await sequelize.close();
   });
 
-  it('Should notify when a customer is created', async () => {
+  it('should notify when a customer is created', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation();
     const customerRepository = new CustomerRepository();
     const customer = new Customer('1', 'John Doe');
@@ -41,7 +41,7 @@ describe('Customer events', () => {
     );
   });
 
-  it('Should notify when the address was updated', async () => {
+  it('should notify when the address was updated', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation();
     const customer = new Customer('1', 'John Doe');
     customer.changeAddress(new Address('Street', '123', '12345', 'City'));

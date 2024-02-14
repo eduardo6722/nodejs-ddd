@@ -23,7 +23,7 @@ describe('Customer repository tests', () => {
     await sequelize.close();
   });
 
-  it('Should create a new customer', async () => {
+  it('should create a new customer', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
 
@@ -43,7 +43,7 @@ describe('Customer repository tests', () => {
     });
   });
 
-  it('Should find a customer', async () => {
+  it('should find a customer', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
 
@@ -57,7 +57,7 @@ describe('Customer repository tests', () => {
     expect(foundCustomerRepository.address._street).toBe('Street 1');
   });
 
-  it('Should update a customer', async () => {
+  it('should update a customer', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
 
@@ -83,7 +83,7 @@ describe('Customer repository tests', () => {
     expect(afterUpdateCustomerRepository.address._street).toBe('Street 2');
   });
 
-  it('Should find all customers', async () => {
+  it('should find all customers', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
     const customer2 = new Customer('2', 'Customer 2');
@@ -98,7 +98,7 @@ describe('Customer repository tests', () => {
     expect(customers.length).toBe(2);
   });
 
-  it('Should activate a customer', async () => {
+  it('should activate a customer', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
 
@@ -118,7 +118,7 @@ describe('Customer repository tests', () => {
     expect(foundCustomer2.isActive()).toBe(true);
   });
 
-  it('Should deactivate a customer', async () => {
+  it('should deactivate a customer', async () => {
     const customer = new Customer('1', 'Customer 1');
     customer.Address = new Address('Street 1', '123', '12345', 'New York');
 

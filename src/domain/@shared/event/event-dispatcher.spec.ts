@@ -3,7 +3,7 @@ import { ProductCreatedEvent } from '../../product/event/product-created.event';
 import { EventDispatcher } from './event-dispatcher';
 
 describe('Domain event tests', () => {
-  it('Should register an event handler', () => {
+  it('should register an event handler', () => {
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
@@ -20,7 +20,7 @@ describe('Domain event tests', () => {
     ).toMatchObject(eventHandler);
   });
 
-  it('Should unregister an event handler', () => {
+  it('should unregister an event handler', () => {
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
@@ -35,7 +35,7 @@ describe('Domain event tests', () => {
     );
   });
 
-  it('Should unregister all events', () => {
+  it('should unregister all events', () => {
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
@@ -45,7 +45,7 @@ describe('Domain event tests', () => {
     expect(eventDispatcher.getEventHandlers).toMatchObject({});
   });
 
-  it('Should notify all event handlers', () => {
+  it('should notify all event handlers', () => {
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new SendEmailWhenProductIsCreatedHandler();
     const spyEventHandler = jest.spyOn(eventHandler, 'handle');
